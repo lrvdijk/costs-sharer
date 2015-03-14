@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>Shared costs report</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8;">
+
+        <style type="text/css">
+        body {
+            padding: 80px;
+            font-family: sans-serif;
+        }
+        </style>
+    </head>
+
+    <body>
+        <h1>Shared costs report</h1>
+        <h2>Statusses</h2>
+        <ul>
+            {% for person, amount in statusses.items() %}
+            <li>
+                <strong>{{ person }}</strong>: 
+                {% if amount < 0 %}
+                <span style="color: red;">{{ amount }}</span>
+                {% else %}
+                <span style="color: green;">{{ amount }}</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+
+        <p>
+            <strong>Sum:</strong>: {{ total }}
+        </p>
+
+        <h2>Entries per person</h2>
+
+        {% for person, entries in report_data.items() %}
+        <h3>{{ person }}</h3>
+        <table class="styled">
+            <tr>
+                <th>Amount</th>
+                <th>Description</th>
+            </tr>
+            {% for entry in entries %}
+            <tr>
+                <td>
+                    {% if entry.amount < 0 %}
+                    <span style="color: red;">{{ entry.amount }}</span>
+                    {% else %}
+                    <span style="color: green;">{{ entry.amount }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ entry.desc }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endfor %}
+
+    </body>
+</html>
